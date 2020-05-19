@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <form>
+                <input type="text" placeholder="Axtarilacaq sozu daxil edin!" name="q">
+                <input type="submit" value="Axtar">
+            </form>
+        </div>
+
+    </div>
+
+
+    <script
+  src="https://code.jquery.com/jquery-3.5.0.min.js"
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+  crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.container').css({
+                'background-color': 'red',
+                'border-radius': '50%',
+            })
+
+            $('div').attr('product_price', '1');
+            console.log($('input:eq(0)').attr('name'));
+            // $('form').submit(function(event){
+            //     event.preventDefault();
+            //     var input_val = $('input[type="text"]').val();
+                
+            //     var url = `https://www.google.com/search?q=${input_val}`;
+            //     console.log(url);
+            //     window.location = url;
+            // });
+
+            
+            // var div_element = $('<div>');
+            // $(div_element).text('Salam dunya');
+            // var body = $('body');
+            // $(body).append($(div_element));
+
+            // $('body').append('<div>Salam dunya</div>');
+            // $('body').prepend('<div>Salam dunya2</div>');
+
+        
+
+        });
+
+    </script>
+</body>
+</html>

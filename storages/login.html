@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <div>
+            <lable>Name</lable>
+            <input type="text" name="username" id="">
+        </div>
+        <div>
+            <label for="">Password</label>
+            <input type="password" name="password" id="">
+            <input type="submit" value="Daxil ol">
+        </div>
+    </form>
+    <script>
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        
+        document.querySelector('form').addEventListener('submit', function(event){
+            event.preventDefault();
+            let username = document.querySelector('[name="username"]').value;
+            let password = document.querySelector('[name="password"]').value;
+            // JSON.stringify()
+            // localStorage.setItem('user', username);
+            // localStorage.setItem('password', password);
+
+            // setCookie('user', username, 4);
+
+            sessionStorage.setItem('user', username)
+            window.location = 'dashboard.html';
+        });
+
+    </script>
+</body>
+</html>

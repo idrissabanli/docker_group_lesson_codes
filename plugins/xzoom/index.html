@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS STYLE-->
+    <link rel="stylesheet" href="src/xzoom.css">
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+    <!-- XZOOM JQUERY PLUGIN  -->
+    <script src="src/xzoom.min.js"></script>
+
+
+</head>
+<body>
+    <div>
+    <img class="xzoom" src="https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/images/gallery/preview/01_b_car.jpg" xoriginal="https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/images/gallery/original/01_b_car.jpg" />
+
+    <div class="xzoom-thumbs">
+      <a href="https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/images/gallery/original/01_b_car.jpg">
+        <img class="xzoom-gallery" width="80" src="https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/images/gallery/thumbs/01_b_car.jpg"  xpreview="https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/images/gallery/preview/01_b_car.jpg">
+      </a>
+      <a href="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01.jpg"> <!-- big image-->
+        <img class="xzoom-gallery" width="80" src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01-150x150.jpg"><!-- Small image-->
+    </a>
+      
+    </div>
+  </div>
+
+    <script>
+        $(".xzoom, .xzoom-gallery").xzoom();
+    </script>
+</body>
+</html>

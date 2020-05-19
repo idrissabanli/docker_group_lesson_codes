@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-11-pro-select-2019-family?wid=882&amp;hei=1058&amp;fmt=jpeg&amp;qlt=80&amp;op_usm=0.5,0.5&amp;.v=1586586488946" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Iphone 7</h5>
+                            <p class="card-text">qiymeti: 1000$</p>
+                            <a href="#" class="btn btn-primary add_to_card">add to cart</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <img src="https://cdn.movertix.com/media/catalog/product/cache/image/1200x/a/p/apple-iphone-11-en-blanco-de-128gb.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Iphone 8</h5>
+                            <p class="card-text">qiymeti: 1200$</p>
+                            <a href="#" class="btn btn-primary add_to_card">add to cart</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-red-select-2019?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1566956144763" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">Iphone 10</h5>
+                            <p class="card-text">qiymeti: 1400$</p>
+                            <a href="#" class="btn btn-primary add_to_card">add to cart</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-11-pro-select-2019-family?wid=882&amp;hei=1058&amp;fmt=jpeg&amp;qlt=80&amp;op_usm=0.5,0.5&amp;.v=1586586488946" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Iphone 11</h5>
+                                <p class="card-text">qiymeti: 1600$</p>
+                                <a href="#" class="btn btn-primary add_to_card">add to cart</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3" id="card_products">
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var buttons =  document.getElementsByClassName('add_to_card');
+
+        for(var i=0; i<buttons.length; i++){
+            buttons[i].addEventListener('click', function(){
+                var card_body = this.parentElement
+                var card_body_children = card_body.children;
+                
+                var card_img = card_body.parentElement.children[0];
+                var card_img_src = card_img.getAttribute('src');
+
+
+
+                for(var i=0; i<card_body_children.length; i++){
+                    if(card_body_children[i].className == 'card-title'){
+                        var card_title = card_body_children[i].innerHTML; 
+                    }
+                    if(card_body_children[i].className == 'card-text'){
+                        var card_price = card_body_children[i].innerHTML;
+                    }
+                }
+                var es = Array.from(document.getElementById('card_products').children).filter((element) => {
+                    return element.getAttribute('product_title') == card_title;
+                });
+                if (es.length == 0){
+                    document.getElementById('card_products').innerHTML += `<div class="card mb-3" product_title="${card_title}">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img src="${card_img_src}" class="card-img" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">${card_title}</h5>
+                          <p class="card-text">${card_price}</p>
+                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>`
+                }
+                });
+                
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <form>
+                <input type="text" placeholder="Axtarilacaq filmi daxil edin!">
+                <input type="submit" value="Axtar">
+            </form>
+        </div>
+
+        <div class="film-detail" style="display: flex; ">
+
+            <div class="image">
+                <img src="" alt="">
+            </div>
+            <div class="f-data">
+                <ul>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script
+  src="https://code.jquery.com/jquery-3.5.0.min.js"
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+  crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('form').submit(function(event){
+                event.preventDefault();
+                var input_val = $('input[type="text"]').val();
+                
+                var film_url = `http://www.omdbapi.com/?t=${input_val}&apikey=35b13908`;
+                
+                $.ajax({
+                    url: film_url,
+                    success: function(object){
+                        console.log(object);
+                        var poster = object.Poster;
+                        $('.image img').attr('src', poster);
+
+                        for(let i in object){
+                            if(i != 'Poster'){
+                                let text = i + ": " + object[i];
+                                if(typeof object[i] == 'object'){
+                                    text = i + ": " + JSON.stringify(object[i]);
+                                }
+                                let li = $('<li>');
+                                li.text(text);
+                                $('.f-data ul').append(li);
+                            }
+                        }
+
+
+                        // var year = object.Year;
+                        // var year_li = $('<li>');
+                        // $(year_li).text(year);
+                        // $('.f-data ul').append(year_li);
+                        
+
+
+                        }
+                });
+            });
+
+        
+
+        });
+
+    </script>
+</body>
+</html>

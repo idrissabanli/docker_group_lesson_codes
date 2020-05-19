@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Add fancyBox -->
+<link rel="stylesheet" href="src/jquery.fancybox.css?v=2.1.7" type="text/css" media="screen" />
+</head>
+<body>
+    
+
+    <a class="fancybox" rel="group" href="https://farm9.staticflickr.com/8140/30366640446_eb359921c5_b.jpg"><img src="https://farm9.staticflickr.com/8140/30366640446_eb359921c5_m.jpg" alt="" /></a>
+    <a class="fancybox" rel="group" href="https://farm1.staticflickr.com/756/22625719192_fdc3369588_b.jpg"><img src="http://farm1.staticflickr.com/756/22625719192_fdc3369588_m.jpg" alt="" /></a>
+
+
+    <!-- Add jQuery library -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- Add mousewheel plugin (this is optional) -->
+<script type="text/javascript" src="src/jquery.mousewheel-3.0.6.pack.js"></script>
+
+<script type="text/javascript" src="src/jquery.fancybox.pack.js?v=2.1.7"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox({
+            openEffect	: 'elastic',
+            closeEffect	: 'elastic',
+
+            helpers : {
+                title : {
+                    type : 'inside'
+                }
+            }
+        }
+        );
+	});
+</script>
+
+</body>
+</html>

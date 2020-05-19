@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+    <!-- JQUERY -->
+    <!-- <script type="text/javascript" src="jquery.min.js"></script> -->
+
+    <!-- CSS STYLE-->
+    <link rel="stylesheet" type="text/css" href="xzoom.css">
+
+    <!-- XZOOM JQUERY PLUGIN  -->
+    <script type="text/javascript" src="xzoom.min.js"></script>
+
+
+</head>
+<style>
+
+</style>
+
+<body>
+
+    <div style="display: flex;justify-content: start;align-items: flex-start; width: 300px;height: 600px;flex-direction: row;">
+        
+        
+        <img class="xzoom"
+            src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02-150x150.jpg" 
+            xoriginal="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02.jpg"> <!--  src small image xoriginal big image-->
+        
+       <div class="xzoom-thumbs">
+
+            <a href="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02-920x1139.jpg">  <!-- big image-->
+                <img class="xzoom-gallery" width="80" src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02-150x150.jpg"> <!-- Small image-->
+            </a>
+
+            <a href="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01.jpg"> <!-- big image-->
+                <img class="xzoom-gallery" width="80" src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01-150x150.jpg"><!-- Small image-->
+            </a>
+
+        </div>
+
+
+
+
+    </div>
+
+
+    <script>
+        $(".xzoom,.xzoom-gallery").xzoom({
+            // mposition: 'inside',
+            position: 'inside',
+            // zoomClass: "salam"
+            // scroll: true,
+            // // defaultScale: 0.5,
+            // zoomHeight:100,
+            // zoomWidth:100,
+            // rotation: true,
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>

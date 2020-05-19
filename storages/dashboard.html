@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Xos geldin </h1>
+
+    <script>
+        
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+            }
+
+            
+        document.querySelector('h1').innerText += ' ' + sessionStorage.getItem('user');
+        // document.querySelector('h1').innerText += ' ' + getCookie('user');
+        // document.querySelector('h1').innerText += ' ' + localStorage.getItem('user');
+
+    </script>
+</body>
+</html>

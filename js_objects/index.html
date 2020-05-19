@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+    function createCarObject(nmake, nmodel, ncolor){
+        return {
+            make: nmake,
+            model: nmodel,
+            color: ncolor,
+            isStart: false,
+            start: function(){
+                this.isStart = true;
+                console.log(`${this.make} ${this.model} masini ise dusdu`);
+            },
+            move: function(distance){
+                if(!this.isStart){
+                    console.log('Masini ise salin!')
+                    return
+                }
+                console.log(`${this.make} ${this.model} ${distance}km hereket etdi!`);
+            }
+        }
+    }
+
+    var bmw750i = createCarObject('BMW', '750i', 'red');
+    var merce = createCarObject('Mercedes', 'E280', 'black');
+    
+    var car_list = [bmw750i, merce];
+    
+    for(let car of car_list){
+        // let car = car_list[i];
+        console.log(car);
+        for(let j in car){
+            if(typeof car[j] != 'function'){
+                console.log(j + ':' + car[j]); //"make" "model" "color"
+            }
+        }
+    }
+
+    </script>
+</body>
+</html>

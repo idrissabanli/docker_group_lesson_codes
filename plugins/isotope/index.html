@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    .element-item{
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        margin: 10px;
+        color:white;
+    }
+    </style>
+</head>
+<body>
+    <div class="filter-button-group">
+        <button data-filter="*" >Show All</button>
+        <button data-filter=".man">Show only man</button>
+        <button data-filter=".woman">Show only woman</button>
+        <button data-filter=".is_worked">Show only is worked</button>
+    </div>
+
+
+    <div class="button-group sort-by-button-group">
+        <button data-sort-by="age">Sort by Age</button>
+        <button data-sort-by="name">Sort by Name</button>
+    </div>
+
+    <div class="grid">
+        <div class="element-item man is_worked"><p class="name">Idris</p> <p class="age">25</p></div>
+        <div class="element-item woman is_worked"><p class="name">Gunay</p> <p class="age">28</p></div>
+        <div class="element-item man is_worked"><p class="name">Aqil</p> <p class="age">29</p></div>
+        <div class="element-item man"><p class="name">Samir</p> <p class="age">24</p></div>
+        <div class="element-item woman"><p class="name">Nermin</p> <p class="age">23</p></div>
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+<!-- or -->
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    
+    <script>
+
+        var $grid = $('.grid').isotope({
+            getSortData: {
+                name: '.name',
+                age: '.age parseInt',
+            }
+        });
+        $('.filter-button-group').on( 'click', 'button', function() {
+            var filterValue = $(this).attr('data-filter'); // ".man"
+            $grid.isotope({ filter: filterValue });
+        });
+
+    // sort items on button click
+        $('.sort-by-button-group').on( 'click', 'button', function() {
+            var sortByValue = $(this).attr('data-sort-by');
+            $grid.isotope({ sortBy: sortByValue });
+        });
+    </script>
+
+</body>
+</html>

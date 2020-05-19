@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 d-flex align-items-center flex-column">
+                <!-- <div style="background-image: url('https://lh3.googleusercontent.com/proxy/7GICEa09kdFhOHBEoDf2119XwKpI0cdfoepPeYer3Ng7iHu9IWzFCD7Sqt3pJEacEeHlgGWvpVIceR5leF8hmxbJzmfpFxuEPkoatH8EzBLWr9DY_Fikqww'); width: 18rem; height: 18rem; background-repeat: no-repeat; background-position: center;"></div> -->
+                <img id="profile" width="200" height="200" src="https://lh3.googleusercontent.com/proxy/7GICEa09kdFhOHBEoDf2119XwKpI0cdfoepPeYer3Ng7iHu9IWzFCD7Sqt3pJEacEeHlgGWvpVIceR5leF8hmxbJzmfpFxuEPkoatH8EzBLWr9DY_Fikqww" alt="">
+                <input class="d-none"  type="file" >
+            </div>
+            <div class="col-lg-9">
+                <div class="sec border rounded p-4">
+                    <h3>Bildiyiniz Diller</h3>
+                    <form action="">
+                        <div class="form-group form-inline">
+                            <label for="">Dil 1</label>
+                            <input type="text" class="form-control">
+                            <button type="button">-</button>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="">Dil 2</label>
+                            <input type="text" class="form-control">
+                            <button type="button">-</button>
+                        </div>
+                    
+                    </form>
+                    <button class="btn mt-4 btn-primary btn-lg btn-block add-new-section">Add New Section</button>
+                </div>
+                <div class="sec mt-4 border rounded p-4">
+                    <h3>Bildiyiniz programlasdirma dilleri</h3>
+                    <form action="">
+                        <div class="form-group form-inline">
+                            <label for="">Dil 1</label>
+                            <input type="text" class="form-control">
+                            <button type="button">-</button>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="">Dil 2</label>
+                            <input type="text" class="form-control">
+                            <button type="button">-</button>
+                        </div>
+                    
+                    </form>
+                    <button class="btn mt-4 btn-primary btn-lg btn-block add-new-section">Add New Section</button>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+
+
+<script>
+
+    function remove_elem(btn){
+        let form_group = btn.parentElement;
+        var index = Array.prototype.indexOf.call(form_group.parentElement.children, form_group);
+        var parent = form_group.parentElement;
+        index+=1;
+        for(let i=index; i<=parent.children.length; i++){
+            label = parent.querySelector(":nth-child("+i+") label");
+            j = i;
+            label.innerText =  `Dil ${--j}`;
+            console.log(label);
+        }
+        form_group.remove();
+    }
+
+    document.querySelectorAll('form > .form-group button').forEach((btn) =>{
+        btn.addEventListener('click', function(){
+            remove_elem(this);
+        });
+    });
+
+    document.querySelector('#profile').addEventListener('click', function(){
+        this.parentElement.querySelector('input[type="file"]').click();
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                document.querySelector('#profile').setAttribute('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+        }
+
+    document.querySelector('input[type="file"]').addEventListener('change', function(){
+        readURL(this);
+    });
+
+    document.querySelectorAll('.add-new-section').forEach((btn)=>{
+        btn.addEventListener('click', function(){
+            let form = this.parentElement.querySelector('form');
+            let form_group_div = document.createElement('div');
+
+            form_group_div.classList.add('form-group');
+            form_group_div.classList.add('form-inline');
+
+            let form_group_label = document.createElement('label')
+
+            let count  = parseInt(form.querySelector('div:last-child > label').innerText.replace('Dil', ''));
+            count ++;
+            form_group_label.innerText = `Dil ${count}`;
+
+            let form_group_input = document.createElement('input');
+            form_group_input.setAttribute('type', 'text');
+            form_group_input.classList.add('form-control');
+
+            let form_group_btn = document.createElement('button');
+            form_group_btn.setAttribute('type', 'button');
+            form_group_btn.innerText = '-';
+
+            form_group_btn.addEventListener('click', function(){
+                remove_elem(this);
+            });           
+
+            form_group_div.appendChild(form_group_label);
+            form_group_div.appendChild(form_group_input);
+            form_group_div.appendChild(form_group_btn);
+
+
+
+            form.appendChild(form_group_div);
+        })
+    })
+
+
+</script>
+</body>
+</html>

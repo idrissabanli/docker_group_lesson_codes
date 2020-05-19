@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="date"></div>
+    <div class="time"><span class="s">59</span>:<span class="ms">59</span></div>
+
+    <script>
+        function realTime(value){
+            if(value<10){
+                return '0' + value;
+            }
+            return value;
+        }
+
+        function setTime(){
+            var minute = parseInt(document.querySelector('.ms').innerHTML);
+            var hour = parseInt(document.querySelector('.s').innerHTML);
+            
+            if (minute === 1){
+                hour--;
+                if(hour===0){
+                    
+                    clearInterval(stopFunctionId);
+                }else{
+                    minute=60;
+                }              
+            }
+            minute--;
+            document.querySelector('.ms').innerHTML = realTime(minute);
+            document.querySelector('.s').innerHTML = realTime(hour);
+        }
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        var stopFunctionId = setInterval(setTime, 1); // 1
+        var stopFunctionId2 = setInterval(setTime, 1); // 2
+        var d = new Date()
+        console.log(d);
+        document.querySelector('.date').innerHTML = d.getFullYear() + '-'+ realTime(d.getMonth()) + '-' + realTime(d.getDate()) + ' Week day:'+ days[d.getDay()];
+
+    </script>
+</body>
+
+    
+
+</html>

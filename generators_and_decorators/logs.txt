@@ -1,0 +1,15 @@
+|func_name|arguments|result|is_worked|
+|divide|(1, 2), {}|0.5|True|
+|sum|(1, 2), {}|3|True|
+|divide|(1, 2), {}|0.5|True|
+|sum|(1, 2), {}|3|True|
+|divide|(1, 2), {}|0.5|True|
+|sum|(1, 2), {}|3|True|
+|divide|(1, 2), {}|0.5|True|
+|sum|(1, 2), {}|3|True|
+|divide|(1, 2), {}|0.5|True|
+|sum|(1, 2), {}|3|True|
+|divide|(1, 0), {}|None|False|
+|divide|(1, 2), {}|0.5|True|
+|sum|(1, 2), {}|3|True|
+|divide|(1, 0), {}|None|False|

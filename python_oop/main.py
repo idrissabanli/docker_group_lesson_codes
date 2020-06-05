@@ -39,7 +39,7 @@ class Sedan():
         print('Sedan start methodudur')
 
 class BMW(Car, Sedan):
-    yanacaq_sefiyyati = 12
+    yanacaq_sefiyyati = 100000
 
     def start(self):
         print(f'Bura bmw-nin start methodudur')

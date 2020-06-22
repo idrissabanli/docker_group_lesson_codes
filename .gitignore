@@ -3,3 +3,4 @@ env/
 venv/
 .env/
 __pycache__/
+mydb/

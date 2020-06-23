@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container">
-        <div class="row">
+{% extends 'base.html' %}
+{% from "helpers/blog_formhelpers.html" import render_field %}
+
+{% block title %}
+Create New Blog
+{% endblock %}
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
             <div class="col-md-8">
 
         <form action="/create" method="post">
+            {{ form.csrf_token }}
             <div class="form-group">
-                <label >Title</label>
-                <input class="form-control" type="text" name="title">
+                {{render_field(form.title)}}
+        
             </div>
 
             <div class="form-group">
-                <label >Description</label>
-                <textarea class="form-control" name="description" id="" cols="30" rows="10"></textarea>
+                {{render_field(form.description)}}
+                
             </div>
             
             <div class="form-group">
-                <label >Owner name</label>
-                <input class="form-control" type="text" name="owner_name">
+                {{render_field(form.owner_name)}}
                 
             </div>
             
@@ -34,8 +34,6 @@
 
         </form>
     </div>
-    {% include 'includes/sidebar.html' %}
-        </div>
-    </div>
-</body>
-</html>
+   
+
+    {% endblock %}

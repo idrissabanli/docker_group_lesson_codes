@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blog - {% block title %} My page {% endblock %}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/blog-home.css') }}" rel="stylesheet">
+  {% block css %}
+
+  {% endblock %}
+</head>
+
+<body>
+
+{% include 'includes/navbar.html' %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+        {% block content %}
+
+        {% endblock %}
+
+        {% include 'includes/sidebar.html' %}
+
+    </div>
+</div>
+
+  {% include 'includes/footer.html' %}
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+</body>
+
+</html>

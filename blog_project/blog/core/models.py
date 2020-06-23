@@ -25,7 +25,7 @@ def create_blog_table():
         cursor.execute(sql)
     connection.commit()
 
-def create_blog(title, description, owner_name, image, is_published=True):
+def create_blog(title, description, owner_name, image, is_published=True, **kwargs):
     with connection.cursor() as cursor:
         # Create a new record
         sql = """insert into blog_project.blogs(title, description, owner_name, image, created_at, is_published)

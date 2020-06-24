@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% from "helpers/blog_formhelpers.html" import render_field %}
-{% block title %} Please Sign Up{% endblock %}
+{% block title %} Please Sign In{% endblock %}
 
 
 {% block content %}
@@ -8,21 +8,14 @@
 <div class="col-md-8">
 
     <form action="" method="post">
+        {% if form_error_message %}
+            <span style="color: red;">{{form_error_message}}</span>
+        {% endif %}
         {{form.csrf_token}}
         <div class="form-group">
             {{render_field(form.username)}}
         </div>
-        <div class="form-group">
-            {{render_field(form.email)}}
-        </div>
-        <div class="form-group">
 
-            {{render_field(form.first_name)}}
-        </div>
-        <div class="form-group">
-
-            {{render_field(form.surname)}}
-        </div>
         <div class="form-group">
 
             {{render_field(form.password)}}

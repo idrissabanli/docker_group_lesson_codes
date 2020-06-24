@@ -10,17 +10,7 @@
         <h1 class="my-4">Page Heading
           <small>Secondary Text</small>
         </h1>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                <li style="color:green">{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-            {% endwith %}
-
+        
         {% for blog in blogs %}
 
         <!-- Blog Post -->

@@ -24,6 +24,22 @@
 
 {% include 'includes/navbar.html' %}
 
+<div class="container">
+  <div class="row">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+        <li style="color:green">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+
+  </div>
+</div>
   <!-- Page Content -->
   <div class="container">
 

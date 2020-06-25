@@ -56,6 +56,14 @@ def check_user_email(email):
         finded_user = cursor.fetchone()
     return finded_user
 
+def get_user(user_id):
+    finded_user = None
+    with connection.cursor() as cursor:
+        sql = 'select * from users where users.id=%s'
+        cursor.execute(sql, user_id)
+        finded_user = cursor.fetchone()
+    return finded_user
+
 def check_user(username, password):
     finded_user = None
     user = check_user_username(username)

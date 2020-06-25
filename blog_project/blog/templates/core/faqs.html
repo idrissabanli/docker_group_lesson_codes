@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from "helpers/blog_formhelpers.html" import render_field %}
+
+{% block title %}
+FAQ
+{% endblock %}
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-8">
+
+        <ul>
+            {% for question in questions %}
+                <li>{{question}}  --  {{question.message}}</li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+   
+
+    {% endblock %}

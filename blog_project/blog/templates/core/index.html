@@ -10,6 +10,8 @@
         <h1 class="my-4">Page Heading
           <small>Secondary Text</small>
         </h1>
+
+        
         
         {% for blog in blogs %}
 
@@ -23,7 +25,11 @@
           </div>
           <div class="card-footer text-muted">
             Posted on {{blog.created_at.strftime('%B %d, %Y')}} by
-            <a href="#">{{blog.owner_name}}</a>
+            
+            <a href="#">{{ get_blog_user(blog.id)}}</a>
+              {% if blog.user_id == current_user.id %}
+                <a class="btn btn-success" href="">Update</a> 
+              {% endif %}
           </div>
         </div>
         {% endfor %}
@@ -31,12 +37,21 @@
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
+          {% if previous_page %}
           <li class="page-item">
-            <a class="page-link" href="#">&larr; Older</a>
+            <a class="page-link" href="?page={{previous_page}}">&larr; Older</a>
           </li>
-          <li class="page-item disabled">
-            <a class="page-link" href="#">Newer &rarr;</a>
+          {% endif %}
+          {% for page in page_range %}
+            <li class="page-item {% if page == current_page %} disabled {% endif %}">
+              <a class="page-link" href="?page={{page}}">{{page}}</a>
+            </li>
+          {% endfor %}
+          {% if next_page %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{next_page}}">Newer &rarr;</a>
           </li>
+          {% endif %}
         </ul>
 
       </div>

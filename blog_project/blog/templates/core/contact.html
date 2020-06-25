@@ -2,7 +2,7 @@
 {% from "helpers/blog_formhelpers.html" import render_field %}
 
 {% block title %}
-Create New Blog
+Contact with us
 {% endblock %}
 {% block css %}
 
@@ -11,19 +11,25 @@ Create New Blog
 {% block content %}
             <div class="col-md-8">
 
-        <form action="/create" method="post">
+        <form action="" method="post">
             {{ form.csrf_token }}
             <div class="form-group">
-                {{render_field(form.title)}}
+                {{render_field(form.username)}}
         
             </div>
 
             <div class="form-group">
-                {{render_field(form.description)}}
+                {{render_field(form.email)}}
+            </div>
+            <div class="form-group">
+                {{render_field(form.subject)}}
+            </div>
+            <div class="form-group">
+                {{render_field(form.message)}}
             </div>
             
 
-            <input type="submit" class="btn btn-primary" value="Yarat">
+            <input type="submit" class="btn btn-primary" value="Send">
             
 
         </form>

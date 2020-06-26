@@ -10,14 +10,12 @@
         <h1 class="my-4">Page Heading
           <small>Secondary Text</small>
         </h1>
-
-        
         
         {% for blog in blogs %}
 
         <!-- Blog Post -->
         <div class="card mb-4">
-          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <img class="card-img-top" src="{{ blog.image }}" alt="Card image cap">
           <div class="card-body">
             <h2 class="card-title">{{blog.title}}</h2>
             <p class="card-text">{{blog.description}}</p>
@@ -26,7 +24,7 @@
           <div class="card-footer text-muted">
             Posted on {{blog.created_at.strftime('%B %d, %Y')}} by
             
-            <a href="#">{{ get_blog_user(blog.id)}}</a>
+            <a href="#">{{ blog.user }}</a>
               {% if blog.user_id == current_user.id %}
                 <a class="btn btn-success" href="">Update</a> 
               {% endif %}

@@ -1,12 +1,12 @@
-from flask_wtf import FlaskForm, RecaptchaField
+from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
+from flask_wtf.file import FileField, FileRequired
 from wtforms.validators import DataRequired, Length
 
 class BlogForm(FlaskForm):
     title = StringField('Basligi', validators=[Length(min=3, max=255, ), DataRequired()])
     description = TextAreaField('Mezmun', validators=[Length(min=3), DataRequired()])
-    # owner_name = StringField('Muellif', validators=[Length(min=3, max=50), DataRequired()])
-    # recaptcha = RecaptchaField()
+    image = FileField(label='Sekil', validators=[FileRequired()])
 
 class ContactForm(FlaskForm):
     username = StringField(validators=[Length(min=3, max=40, ), DataRequired()])

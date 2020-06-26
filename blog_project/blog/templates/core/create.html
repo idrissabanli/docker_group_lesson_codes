@@ -11,7 +11,7 @@ Create New Blog
 {% block content %}
             <div class="col-md-8">
 
-        <form action="/create" method="post">
+        <form action="/create" method="post" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <div class="form-group">
                 {{render_field(form.title)}}
@@ -20,6 +20,10 @@ Create New Blog
 
             <div class="form-group">
                 {{render_field(form.description)}}
+            </div>
+
+            <div class="form-group">
+                {{render_field(form.image)}}
             </div>
             
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load custom_filters custom_tags i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% with  desc|split as splitted  %}
+    <ul>
+        {% for item in splitted %}
+            <li>{{item|first_char}}</li>
+        {% endfor %}
+    </ul>
+    {% endwith %}
+
+    {% current_datetime as now %}
+
+    <h1>{% trans 'user' %} {{now}}</h1>
+    <h1>Current time {{now}}</h1>
+    
+
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    {% if full_name %}
+        <h1>Hello {{full_name}}</h1>
+    {% endif %}
+
+
+    
+    <img style="width: 300px; height: 100px;" src="{% static 'images/techacademy.jpg' %}" alt="">
+
+    <h2>{{title|upper}}</h2>
+    <h2>{{title|lower}}</h2>
+    <h2>{{title|capfirst}}</h2>
+    <h2>{{title|length}}</h2>
+    <p>{{desc|truncatewords:"10"}}</p>
+
+    <h1>{{pi|floatformat:"2"}}</h1>
+
+    <p>{{desc|cut:"o" }}</p>
+
+    <h5>Tek ededler:</h5>
+    {% for item in array %}
+        {% if not item|divisibleby:"2" %}
+            {{item}}
+        {% endif %}
+    {% empty %}
+        <h1>Teessuf ki, gosterilecek melumat yoxdur!</h1>
+    {% endfor %}
+
+    {{html|safe}}
+    {{array|slice:"0:4"}}
+
+    {% with pi|floatformat:"2" as fpi %}
+        <h1> Formated PI {{fpi}}</h1>
+    {% endwith %}
+    <!-- array[2:4] -->
+</body>
+</html>

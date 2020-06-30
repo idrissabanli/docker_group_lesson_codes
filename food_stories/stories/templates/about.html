@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} About {% endblock %}
+
+{% block content %}
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_4.jpg' %});">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <h1 class="mb-3 bread">About Us</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
+                        class="ion-ios-arrow-forward"></i></a></span> <span>About us<i
+                        class="ion-ios-arrow-forward"></i></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-counter ftco-section ftco-no-pt ftco-no-pb img" id="section-counter">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-6 d-flex">
+                <div class="img d-flex align-self-stretch" style="background-image:url({% static 'images/about.jpg' %});"></div>
+            </div>
+            <div class="col-md-6 pl-md-5 py-5">
+                <div class="row justify-content-start pb-3">
+                    <div class="col-md-12 heading-section ftco-animate">
+                        <h2 class="mb-4"><span>About Stories</span></h2>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-5 bg-light mb-4">
+                            <div class="text">
+                                <strong class="number" data-number="100">0</strong>
+                                <span>Daily visitors</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-5 bg-light mb-4">
+                            <div class="text">
+                                <strong class="number" data-number="200">0</strong>
+                                <span>Stories</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-5 bg-light mb-4">
+                            <div class="text">
+                                <strong class="number" data-number="300">0</strong>
+                                <span>Recipes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-5 bg-light mb-4">
+                            <div class="text">
+                                <strong class="number" data-number="40">0</strong>
+                                <span>Users</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-subscribe ftco-section bg-light">
+    <div class="overlay">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 text-wrap text-center heading-section ftco-animate">
+                    <h2 class="mb-4"><span>Subcribe to our Newsletter</span></h2>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
+                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Enter email address">
+                                    <input type="submit" value="Subscribe" class="submit px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

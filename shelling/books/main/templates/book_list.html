@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form style="margin-bottom: 20px;" action="">
+        <input type="text" name="search" value="{{search_word}}">
+        <select name="category">
+            <option value="0">----</option>
+            {% for category in categories %}
+                <option {% if searched_category == category.id %} selected {% endif %} value="{{category.id}}">{{category.title}}</option>
+            {% endfor %}
+            
+        </select>
+        <input type="submit" value="Axtar">
+    </form>
+    <p><a href="{% url 'books' %}">Sifirla</a></p>
+
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>author</th>
+            <th>Category</th>
+            <th>price</th>
+            <th>page_count</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <th>{{book.id}}</th>
+            <th>{{book.title}}</th>
+            <th>{{book.author}}</th>
+            <th>{{book.categories}}</th>
+            <th>{{book.price}}$</th>
+            <th>{{book.page_count}}</th>
+        </tr>
+        {% endfor %}
+        
+
+    </table>
+</body>
+</html>

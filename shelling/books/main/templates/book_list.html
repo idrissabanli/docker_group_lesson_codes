@@ -8,6 +8,9 @@
         .error{
             color: red;
         }
+        li{
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -28,6 +31,9 @@
             {% endfor %}
             
         </select>
+
+        <input type="number" step="0.01" name="min_price" value="{{min_price}}" placeholder="min price">
+        <input type="number" step="0.01" name="max_price" value="{{max_price}}" placeholder="max price">
         <input type="submit" value="Axtar">
     </form>
     <p><a href="{% url 'books' %}">Sifirla</a></p>
@@ -53,6 +59,29 @@
         {% endfor %}
         
 
+        <br>
+
+        
+
     </table>
+    <div>
+        <ul style="display: flex; list-style: none;">
+            {% if previous_page != 0 %}
+                <li><a href="{{search_query}}page=&{{previous_page}}">previous</a></li>
+            {% endif %}
+            {% for page in page_range %}
+            
+                {% if current_page_number == page %}
+                    <li><b> Page {{page}}</b></li>
+                    {% else %}
+                    <li><a href="{{search_query}}&page={{page}}">Page {{page}}</a></li>
+                {% endif %}
+            
+            {% endfor %}
+            {% if next_page != page_count|add:"1" %}
+                <li><a href="{{search_query}}&page={{next_page}}">next</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </body>
 </html>

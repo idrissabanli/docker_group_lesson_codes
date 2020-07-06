@@ -25,6 +25,18 @@
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <style>
+        li.success{
+            background-color: green;
+            width: 100%;
+            color: white;
+        }
+        li.error{
+            background-color: red;
+            width: 100%;
+            color: white;
+        }
+    </style>
     {% block css %}
     {% endblock %}
 </head>
@@ -32,9 +44,18 @@
 <body>
     {% include 'includes/navbar.html' %}
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
     {% block content %}
 
     {% endblock %}
+
 
 
 

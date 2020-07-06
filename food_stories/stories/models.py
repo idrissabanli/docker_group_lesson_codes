@@ -90,6 +90,24 @@ class Comment(models.Model):
     message = models.TextField('Message')
 
 
+class Contact(models.Model):
+    name = models.CharField('Name', max_length=40)
+    email = models.EmailField('Email', max_length=40)
+    subject = models.CharField('Subject', max_length=255)
+    message = models.TextField('Message')
+
+    # moderations
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta: 
+        verbose_name = 'Contact'
+        verbose_name_plural = 'Contacts'
+
+    def __str__(self):
+        return f"{self.name} subject: {self.subject}"
+
+
 """
 |id | message | parent_id |
 | 1 | Eladi | null |

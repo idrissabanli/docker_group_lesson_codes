@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+from stories.tools.slug_generator import slugify
+from datetime import datetime
+from ckeditor.fields import RichTextField
 
 USER_MODEL = get_user_model()
 
@@ -58,10 +61,11 @@ class Recipe(models.Model):
     title = models.CharField('Basligi', max_length=120)
     short_description = models.CharField('Qisa Mezmunu', max_length=255, help_text='Bu sahe repestler siyahisinda reseptin mezmunu olaraq gorunur...')
     image = models.ImageField('Sekil', upload_to='recipes')
-    long_description = models.TextField('Genis mezmunu')
+    long_description = RichTextField('Genis mezmunu')
     # author = models.CharField('Muellif', max_length=50)
 
     # moderations
+    slug = models.SlugField('slug', max_length=255, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField('is published', default=True)
@@ -76,6 +80,10 @@ class Recipe(models.Model):
     def __str__(self):
         return f"{self.title} category: {self.category}"
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = f"{slugify(self.title)}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        super().save(*args, **kwargs)
 
 class Comment(models.Model):
     # relations

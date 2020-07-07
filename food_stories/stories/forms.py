@@ -1,6 +1,7 @@
 from django import forms
-from stories.models import Contact
-
+from stories.models import Contact, Recipe
+# from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class ContactForm(forms.ModelForm):
     phone_number = forms.CharField(max_length=13, initial='+994', min_length=7, widget=forms.TextInput(attrs={
@@ -49,8 +50,11 @@ class ContactForm(forms.ModelForm):
 
 
 
-
-
+class RecipeAdminForm(forms.ModelForm):
+    long_description = forms.CharField(widget=CKEditorUploadingWidget())
+    class Meta:
+        model = Recipe
+        fields = '__all__'
 
 
 

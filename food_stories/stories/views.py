@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from stories.models import Category, Recipe
 from stories.forms import ContactForm
 from django.contrib import messages
@@ -15,7 +15,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html', )
 
-def contant(request):
+def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -30,4 +30,24 @@ def contant(request):
         'form' : form
     }
     return render(request, 'contact.html', context)
+
+
+def recipes(request):
+    recipes = Recipe.objects.filter(is_published=True)
+    context = {
+        'recipes': recipes
+    }
+    return render(request, 'recipes.html', context)
+
+
+def recipe_detail(request, slug):
+    print(slug)
+    # recipe = Recipe.objects.get(slug=slug)
+    recipe = get_object_or_404(Recipe, slug=slug)
+    context = {
+        'object': recipe
+    }
+    return render(request, 'single.html', context)
+
+
 

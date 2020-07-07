@@ -16,16 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
-from stories.views import home, about, contant
+from django.urls import path, include
+from stories.views import home, about, contact, recipes, recipe_detail
 from accounts.views import register
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('about/', about, name='about'),
-    path('contact/', contant, name='contact'),
-    path('register/', register, name='register')
+    path('contact/', contact, name='contact'),
+    path('recipes/', recipes, name='recipes'),
+    path('register/', register, name='register'),
+    path('recipes/<str:slug>/', recipe_detail, name='recipe_detail'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ] 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

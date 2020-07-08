@@ -1,5 +1,5 @@
 from django import forms
-from stories.models import Contact, Recipe
+from stories.models import Contact, Recipe, Story, Category, Tag
 # from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -55,6 +55,26 @@ class RecipeAdminForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = '__all__'
+
+
+class StoryForm(forms.ModelForm):
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.Select(attrs={
+                    'class': 'form-control'
+                }))
+    tags =  forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.SelectMultiple(attrs={
+                    'class': 'form-control',
+                }) )
+    class Meta:
+        model = Story
+        fields = ('title', 'category', 'tags', 'long_description', 'image',)
+        widgets = {
+            'title': forms.TextInput(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Title',
+                }),
+            'long_description': CKEditorUploadingWidget(),
+
+        }
 
 
 

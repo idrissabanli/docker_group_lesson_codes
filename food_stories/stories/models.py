@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from stories.tools.slug_generator import slugify
 from datetime import datetime
 from ckeditor.fields import RichTextField
+from django.urls import reverse_lazy
 
 USER_MODEL = get_user_model()
 
@@ -84,6 +85,44 @@ class Recipe(models.Model):
         if not self.slug:
             self.slug = f"{slugify(self.title)}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         super().save(*args, **kwargs)
+
+
+class Story(models.Model):
+    # relations
+    category = models.ForeignKey(Category, verbose_name='Kateqoriya', on_delete=models.CASCADE, db_index=True, related_name='stories')
+    tags = models.ManyToManyField(Tag, verbose_name='Tags', related_name='stories')
+    author = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE, db_index=True, related_name='stories')
+
+    # informations
+    title = models.CharField('Basligi', max_length=120)
+    image = models.ImageField('Sekil', upload_to='recipes')
+    long_description = RichTextField('Genis mezmunu')
+    # author = models.CharField('Muellif', max_length=50)
+
+    # moderations
+    slug = models.SlugField('slug', max_length=255, editable=False, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField('is published', default=True)
+
+    class Meta: # table name: stroies_recipe
+        # app_label = 'story'
+        # db_table = 'resept'
+        verbose_name = 'Hekaye'
+        verbose_name_plural = 'Hekayeler'
+        ordering = ('-created_at', '-title')
+
+    def __str__(self):
+        return f"{self.title} category: {self.category}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = f"{slugify(self.title)}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse_lazy('story_detail', kwargs={'slug': self.slug }) #f'/stories/{self.slug}/'
+
 
 class Comment(models.Model):
     # relations

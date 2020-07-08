@@ -151,6 +151,13 @@ CKEDITOR_FILENAME_GENERATOR = 'stories.utils.get_filename'
 CKEDITOR_BROWSE_SHOW_DIRS = True
 CKEDITOR_RESTRICT_BY_DATE = True
 
+CKEDITOR_CONFIGS = {
+    "default": {
+        'height': '100%',
+        'width': '100%',
+    }
+}
+
 
 JET_DEFAULT_THEME = 'green'
 

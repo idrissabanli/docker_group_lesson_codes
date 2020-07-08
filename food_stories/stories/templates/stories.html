@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Recipes {% endblock %}
+{% block title %} Stories {% endblock %}
 
 {% block content %}
+
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_4.jpg' %}');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <h1 class="mb-3 bread">Recipes</h1>
+                <h1 class="mb-3 bread">Stories</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
-                        class="ion-ios-arrow-forward"></i></a></span> <span>Recipes <i
-                        class="ion-ios-arrow-forward"></i></span></p>
+                        class="ion-ios-arrow-forward"></i></a></span> <span>Stories <i
+                        class="ion-ios-arrow-forward"></i></span>
+                </p>
             </div>
         </div>
     </div>
@@ -24,39 +26,44 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="row">
-                    {% for recipe in recipes %}
-                    <div class="col-md-6 col-lg-12 ftco-animate">
-                        <div class="blog-entry d-lg-flex">
-                            <div class="half">
-                                <a href="{% url 'recipe_detail' recipe.slug %}" class="img d-flex align-items-end"
-                                   style="background-image: url('{{recipe.image.url}}');">
-                                    <div class="overlay"></div>
-                                </a>
-                            </div>
-                            <div class="text px-md-4 px-lg-5 half pt-3">
-                                <p class="meta d-flex"><span class="pr-3">{{recipe.category.title}}</span><span class="ml-auto pl-3">{{recipe.created_at|date:"F d, Y"}}</span>
+                    {% for story in story_list %}
+                    <div class="col-md-4 ftco-animate">
+                        <div class="blog-entry">
+                            <a href="{{ story.get_absolute_url }}" class="img-2"><img src="{{ story.image.url }}" class="img-fluid"
+                                                                     alt="Colorlib Template"></a>
+                            <div class="text pt-3">
+                                <p class="meta d-flex"><span class="pr-3">{{ story.category.title }}</span><span class="ml-auto pl-3">{{story.created_at|date:"F d, Y"}}</span>
                                 </p>
-                                <h3><a href="{% url 'recipe_detail' recipe.slug %}">{{recipe.title}}</a></h3>
-                                <p>{{recipe.short_description|truncatewords:"20"}}
-                                </p>
-                                <p class="mb-0"><a href="{% url 'recipe_detail' recipe.slug %}" class="btn btn-primary">Read More <span
+                                <h3><a href="{{ story.get_absolute_url }}">{{story.title}}</a></h3>
+                                <p class="mb-0"><a href="{{ story.get_absolute_url }}" class="btn btn-black py-2">Read More <span
                                         class="icon-arrow_forward ml-4"></span></a></p>
                             </div>
                         </div>
                     </div>
-                   {% endfor %}
+                    {% empty %}
+                    <h3>Göstəriləcək məlumat yoxdur</h3>
+                    {% endfor %}
+
                 </div>
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
                             <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                                {% endif %}
+                                
+                                {% for page in page_obj.paginator.page_range %}
+                                    {% if page == page_obj.number %}
+                                        <li class="active"><span>{{page}}</span></li>
+                                    {% else %}
+                                        <li><a href="?page={{page}}">{{page}}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.paginator.num_pages }}">&gt;</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -67,7 +74,7 @@
                 <div class="sidebar-wrap">
                     <div class="sidebar-box p-4 about text-center ftco-animate">
                         <h2 class="heading mb-4">About Me</h2>
-                        <img src="{% static 'images/author.jpg' %}" class="img-fluid" alt="Colorlib Template">
+                        <img src="images/author.jpg" class="img-fluid" alt="Colorlib Template">
                         <div class="text pt-4">
                             <p>Hi! My name is <strong>Cathy Deon</strong>, behind the word mountains, far from the
                                 countries Vokalia and Consonantia, there live the blind texts. Separated they live in

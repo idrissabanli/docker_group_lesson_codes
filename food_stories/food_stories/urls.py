@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
-from stories.views import home, about, contact, recipes, recipe_detail
+from stories.views import home, about, recipes, recipe_detail, StoryListView, StoryDetailView, ContactView, \
+    CreateStoryView
 from accounts.views import register
 
 urlpatterns = [
@@ -26,9 +27,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('about/', about, name='about'),
-    path('contact/', contact, name='contact'),
+    path('contact/', ContactView.as_view(), name='contact'),
     path('recipes/', recipes, name='recipes'),
     path('register/', register, name='register'),
+    path('stories/', StoryListView.as_view(), name='stories'),
+    path('create-story/', CreateStoryView.as_view(), name='create_story'),
+    path('stories/<str:slug>/', StoryDetailView.as_view(), name='story_detail'),
     path('recipes/<str:slug>/', recipe_detail, name='recipe_detail'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] 

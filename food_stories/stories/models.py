@@ -86,6 +86,10 @@ class Recipe(models.Model):
             self.slug = f"{slugify(self.title)}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse_lazy('recipe_detail', kwargs={'slug': self.slug }) #f'/stories/{self.slug}/'
+
+
 
 class Story(models.Model):
     # relations

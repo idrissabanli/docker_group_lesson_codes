@@ -18,8 +18,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from stories.views import home, about, recipes, recipe_detail, StoryListView, StoryDetailView, ContactView, \
-    CreateStoryView
-from accounts.views import register
+    CreateStoryView, StoryUpdateView, StoryDeleteView
+from accounts.views import register, UserProfile
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
@@ -30,8 +30,11 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('recipes/', recipes, name='recipes'),
     path('register/', register, name='register'),
+    path('user-profile/', UserProfile.as_view(), name='user_profiel'),
     path('stories/', StoryListView.as_view(), name='stories'),
     path('create-story/', CreateStoryView.as_view(), name='create_story'),
+    path('delete-story/<str:slug>/', StoryDeleteView.as_view(), name='delete_story'),
+    path('update-story/<str:slug>/', StoryUpdateView.as_view(), name='update_story'),
     path('stories/<str:slug>/', StoryDetailView.as_view(), name='story_detail'),
     path('recipes/<str:slug>/', recipe_detail, name='recipe_detail'),
     path('ckeditor/', include('ckeditor_uploader.urls')),

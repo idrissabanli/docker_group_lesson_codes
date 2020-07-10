@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 from stories.tools.slug_generator import slugify
 from datetime import datetime
 from ckeditor.fields import RichTextField
@@ -63,6 +62,7 @@ class Recipe(models.Model):
     short_description = models.CharField('Qisa Mezmunu', max_length=255, help_text='Bu sahe repestler siyahisinda reseptin mezmunu olaraq gorunur...')
     image = models.ImageField('Sekil', upload_to='recipes')
     long_description = RichTextField('Genis mezmunu')
+    show_home_page = models.BooleanField(default=False)
     # author = models.CharField('Muellif', max_length=50)
 
     # moderations

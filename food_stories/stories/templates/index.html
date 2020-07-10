@@ -130,7 +130,7 @@
             </div>
         </div>
     </section>
-
+    {% if request.user.is_authenticated %}
     <section class="ftco-section ftco-no-pt">
         <div class="container">
             <div class="row">
@@ -141,55 +141,35 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 ftco-animate">
-                            <div class="blog-entry">
-                                <a href="single.html" class="img-2"><img src="{% static 'images/blog-1.jpg' %}" class="img-fluid" alt="Colorlib Template"></a>
-                                <div class="text pt-3">
-                                    <p class="meta d-flex"><span class="pr-3">Dessert</span><span class="ml-auto pl-3">March 01, 2018</span>
-                                    </p>
-                                    <h3><a href="#">Tasty &amp; Delicious Foods</a></h3>
-                                    <p class="mb-0"><a href="single.html" class="btn btn-black py-2">Read More <span
-                                        class="icon-arrow_forward ml-4"></span></a></p>
+                        
+                            {% for story in request.user.stories.all|slice:":3" %}
+                                <div class="col-md-4 ftco-animate">
+                                    <div class="blog-entry">
+                                        <a href="{{story.get_absolute_url }}" class="img-2"><img src="{{story.image.url}}" class="img-fluid" alt="Colorlib Template"></a>
+                                        <div class="text pt-3">
+                                            <p class="meta d-flex"><span class="pr-3">{{story.category.title}}</span><span class="ml-auto pl-3">{{story.created_at|date:"F d, Y"}}</span>
+                                            </p>
+                                            <h3><a href="{{story.get_absolute_url }}">{{story.title}}</a></h3>
+                                            <p class="mb-0"><a href="{{story.get_absolute_url }}" class="btn btn-black py-2">Read More <span
+                                                class="icon-arrow_forward ml-4"></span></a></p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="blog-entry">
-                                <a href="single.html" class="img-2"><img src="{% static 'images/blog-2.jpg' %}" class="img-fluid" alt="Colorlib Template"></a>
-                                <div class="text pt-3">
-                                    <p class="meta d-flex"><span class="pr-3">Dessert</span><span class="ml-auto pl-3">March 01, 2018</span>
-                                    </p>
-                                    <h3><a href="#">Tasty &amp; Delicious Foods</a></h3>
-                                    <p class="mb-0"><a href="single.html" class="btn btn-black py-2">Read More <span
-                                        class="icon-arrow_forward ml-4"></span></a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="blog-entry">
-                                <a href="single.html" class="img-2"><img src="{% static 'images/blog-3.jpg' %}" class="img-fluid" alt="Colorlib Template"></a>
-                                <div class="text pt-3">
-                                    <p class="meta d-flex"><span class="pr-3">Dessert</span><span class="ml-auto pl-3">March 01, 2018</span>
-                                    </p>
-                                    <h3><a href="#">Tasty &amp; Delicious Foods</a></h3>
-                                    <p class="mb-0"><a href="single.html" class="btn btn-black py-2">Read More <span
-                                        class="icon-arrow_forward ml-4"></span></a></p>
-                                </div>
-                            </div>
-                        </div>
+                            {% endfor %}
                     </div>
                 </div>
 
                 <div class="col-lg-3">
                     <div class="sidebar-wrap">
+                       
                         <div class="sidebar-box p-4 about text-center ftco-animate">
                             <h2 class="heading mb-4">About Me</h2>
-                            <img src="{% static 'images/author.jpg' %}" class="img-fluid" alt="Colorlib Template">
+                            <img src="{{ request.user.get_avatar }}" class="img-fluid" alt="Colorlib Template">
                             <div class="text pt-4">
-                                <p>Hi! My name is <strong>Cathy Deon</strong>, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                                    a large language ocean.</p>
+                                <p>{{request.user.bio}}</p>
                             </div>
                         </div>
+                        
                         <div class="sidebar-box p-4 ftco-animate">
                             <form action="#" class="search-form">
                                 <div class="form-group">
@@ -203,6 +183,7 @@
             </div>
         </div>
     </section>
+    {% endif %}
     <section class="ftco-section">
         <div class="container">
             <div class="row">

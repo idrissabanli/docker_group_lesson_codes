@@ -1,12 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from accounts.forms import RegisterForm
 from django.views.generic import ListView
 from stories.models import Story, Recipe
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Istifadeci ugurla yaradildi')
+            return redirect(reverse_lazy('home'))
     else:
         form = RegisterForm()
     context = {

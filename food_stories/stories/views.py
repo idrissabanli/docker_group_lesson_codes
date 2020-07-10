@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, \
+    TemplateView
 from django.urls import reverse_lazy
 
 from stories.models import Category, Recipe, Story
@@ -7,14 +8,25 @@ from stories.forms import ContactForm, StoryForm
 from django.contrib import messages
 
 
-def home(request):
-    categories = Category.objects.all()[:3]
-    recipes = Recipe.objects.all()[:2]
-    context = {
-        'categories': categories,
-        'recipes': recipes
-    }
-    return render(request, 'index.html', context)
+# def home(request):
+#     categories = Category.objects.all()[:3]
+#     recipes = Recipe.objects.all()[:2]
+#     context = {
+#         'categories': categories,
+#         'recipes': recipes
+#     }
+#     return render(request, 'index.html', context)
+
+
+class HomePage(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data( *args, **kwargs)
+        context['recipes'] = Recipe.objects.all().order_by('-show_home_page')[:2]
+        context['categories'] = Category.objects.all()[:3]
+        return context
+
 
 def about(request):
     return render(request, 'about.html', )

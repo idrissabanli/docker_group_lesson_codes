@@ -25,7 +25,7 @@ class RecipeAdmin(admin.ModelAdmin):
         ('moderation', {
             'description': 'moderation desc',
             'classes': ('collapse',),
-            'fields': ('is_published',)
+            'fields': ('is_published', 'show_home_page',)
         }),
     )
    

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -134,8 +135,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/admin/'
+LOGIN_URL = reverse_lazy('login')
 
+LOGIN_REDIRECT_URL = reverse_lazy('user_profile')
+
+LOGOUT_REDIRECT_URL = reverse_lazy('home')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -197,3 +201,11 @@ JET_THEMES = [
         'title': 'Light Gray'
     }
 ]
+
+# change your custom smtp configuration
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tech.academy.user2@gmail.com'
+EMAIL_HOST_PASSWORD = 'fsqcyadagqipthcz'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

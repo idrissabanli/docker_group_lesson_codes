@@ -1,24 +1,86 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from accounts.forms import RegisterForm
+from accounts.forms import CustomUserCreationForm, LoginForm
 from django.views.generic import ListView
 from stories.models import Story, Recipe
 from django.contrib import messages
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.views import LoginView
+from accounts.tasks import send_confirmation_email
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth import get_user_model
+from accounts.tools.token import account_activation_token
+
+User = get_user_model()
+
+
+class CustomLoginView(LoginView):
+    form_class = LoginForm
+    template_name = 'login.html'
+
+# def login(request):
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             email = form.cleaned_data.get('email')
+#             password = form.cleaned_data.get('password')
+#             user = authenticate(request, email=email, password=password)
+#             if user:
+#                 auth_login(request, user)
+#                 messages.success(request, 'Ugurla Login olundu')
+#                 return redirect(reverse_lazy('user_profile'))
+#             else:
+#                 messages.error(request, 'Bele bir user movcud deyil')
+#     else:
+#         form = LoginForm()
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'login.html', context)
+
+# def logout(request):
+#     auth_logout(request)
+#     return redirect(reverse_lazy('home'))
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Istifadeci ugurla yaradildi')
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            site_address = get_current_site(request).domain
+            send_confirmation_email(user.id, site_address)
+            # user = form.save(commit=False)
+            # user.set_password(form.cleaned_data.get('password'))
+            # user.save()
+            messages.success(request, 'Istifadeci ugurla yaradildi, Zehmet olmasa Email-e daxil olub hesabinizi tesdiqleyin')
             return redirect(reverse_lazy('home'))
     else:
-        form = RegisterForm()
+        form = CustomUserCreationForm()
     context = {
         'form': form
     }
     return render(request, 'register.html', context)
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Thank you for your email confirmation. Now you can login your account.')
+        return redirect('login')
+    messages.error('Activation link is invalid!')    
+    return redirect('home')
+    
 
 
 class UserProfile(LoginRequiredMixin, ListView):

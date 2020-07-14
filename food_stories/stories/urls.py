@@ -1,6 +1,6 @@
 from django.urls import path
 from stories.views import HomePage, about, recipes, recipe_detail, StoryListView, StoryDetailView, ContactView, \
-    CreateStoryView, StoryUpdateView, StoryDeleteView
+    CreateStoryView, StoryUpdateView, StoryDeleteView, manage
 
 urlpatterns = [
     path('', HomePage.as_view(), name='home'),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('update-story/<str:slug>/', StoryUpdateView.as_view(), name='update_story'),
     path('stories/<str:slug>/', StoryDetailView.as_view(), name='story_detail'),
     path('recipes/<str:slug>/', recipe_detail, name='recipe_detail'),
+    path('manage/', manage, name='manage'),
 ]

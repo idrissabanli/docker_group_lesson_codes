@@ -23,6 +23,7 @@ urlpatterns = [
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', include('stories.urls')),
+    path('', include('social_django.urls', namespace="social")),
     path('auth/', include('accounts.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] 

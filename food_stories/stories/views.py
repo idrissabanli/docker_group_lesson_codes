@@ -31,6 +31,10 @@ class HomePage(TemplateView):
 def about(request):
     return render(request, 'about.html', )
 
+
+def manage(request):
+    return render(request, 'manage.html')
+
 # def contact(request):
 #     if request.method == 'POST':
 #         form = ContactForm(request.POST)

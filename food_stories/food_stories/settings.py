@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -136,10 +143,17 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = reverse_lazy('login')
-
+LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = reverse_lazy('user_profile')
 
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '710160068384-eb7tcnf39cg1js8s5pgch0c1l93ltdgd.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'fyJXfRGu8sfvtFGJHV72tzw-'
+SOCIAL_AUTH_FACEBOOK_KEY = '1707191459439995'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '46459ce1a71bb0aec1a28a12eb374952'  # App Secret
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

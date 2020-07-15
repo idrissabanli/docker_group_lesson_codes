@@ -16,3 +16,7 @@ class User(AbstractUser):
         if self.image:
             return self.image.url
         return 'https://cdt.org/files/2015/10/2015-10-06-FB-person.png'
+
+    @property
+    def is_author(self):
+        return self.groups.filter(name='author').exists()

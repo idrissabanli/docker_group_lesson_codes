@@ -23,12 +23,17 @@
                             <a href="{% url 'change_password' %}" class="btn btn-hover-color py-2">Edit Profile</a>
 
                         </div>
+                        {% if request.user.is_author %}
                         <div class="sidebar-box ftco-animate user-profile">
-                            <a href="single.html" class="btn btn-hover-color py-2">Create story </a>
+                            <a href="{% url 'create_story' %}" class="btn btn-hover-color py-2">Create story </a>
                         </div>
-                        <div class="sidebar-box ftco-animate user-profile">
-                            <a href="single.html" class="btn btn-hover-color py-2">Create recipe </a>
-                        </div>
+                        {#  {% if perms.stories.add_recipe %} #}
+                        
+                            <div class="sidebar-box ftco-animate user-profile">
+                                <a href="{% url 'create_recipe' %}" class="btn btn-hover-color py-2">Create recipe </a>
+                            </div>
+                        {% endif %}
+                        {#  {% endif %} #}
                         <div class="sidebar-box p-4 ftco-animate">
                             <form action="#" class="search-form">
                                 <div class="form-group">

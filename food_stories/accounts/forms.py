@@ -82,6 +82,8 @@ class ResetPasswordForm(SetPasswordForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
+    CHOICES=(('read', 'Reader'),
+            ('write', 'Author'))
     password1 = forms.CharField(
         label=_("Password"),
         strip=False,
@@ -102,6 +104,9 @@ class CustomUserCreationForm(UserCreationForm):
         strip=False,
         help_text=_("Enter the same password as before, for verification."),
     )
+    is_author = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={
+        # 'class': 'form-control',
+    }))
 
     class Meta:
         model = User
@@ -114,6 +119,7 @@ class CustomUserCreationForm(UserCreationForm):
             'last_name',
             'image',
             'bio',
+            'is_author',
         )
 
         widgets = {

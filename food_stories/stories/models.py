@@ -159,6 +159,22 @@ class Contact(models.Model):
         return f"{self.name} subject: {self.subject}"
 
 
+class SavedArticle(models.Model):
+    user = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE, related_name='saved_articles',)
+    recipe =models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_saved_articles', null=True, blank=True)
+    story =models.ForeignKey(Story, on_delete=models.CASCADE, related_name='story_saved_articles', null=True, blank=True)
+
+    # moderations
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta: 
+        verbose_name = 'Saved Article'
+        verbose_name_plural = 'Saved Articles'
+
+    def __str__(self):
+        return f"{self.user} recipe: {self.recipe} story: {self.story}"
+
 """
 |id | message | parent_id |
 | 1 | Eladi | null |

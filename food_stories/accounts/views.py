@@ -11,10 +11,12 @@ from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordRes
 from accounts.tasks import send_confirmation_email
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission, Group
 from accounts.tools.token import account_activation_token
 
-from stories.models import Story, Recipe
+from stories.models import Story, Recipe, SavedArticle
 from accounts.forms import CustomUserCreationForm, LoginForm, CustomPasswordChangeForm, CustomPasswordResetForm, ResetPasswordForm
+
 
 User = get_user_model()
 
@@ -85,7 +87,27 @@ def register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
+
+            if form.cleaned_data.get('is_author') == 'write':
+                group = Group.objects.get(name='author')
+            else:
+                group = Group.objects.get(name='reader')
+
+            # if form.cleaned_data.get('is_author') == 'write':
+            #     permission = Permission.objects.get(codename='add_recipe')
+            # else:
+            #     permission = Permission.objects.get(codename='view_recipe')
             user.save()
+            saved_articles = request.COOKIES.get('saved_articles')
+            if saved_articles:
+                print(saved_articles)
+                for saved_article_id in saved_articles.split(';'):
+                    if saved_article_id and saved_article_id != '':
+                        recipe = Recipe.objects.get(pk=int(saved_article_id))
+                        SavedArticle.objects.get_or_create(user=user, recipe=recipe)
+                request.COOKIES['saved_articles'] = ''
+            user.groups.add(group)
+            # user.user_permissions.add(permission)
             site_address = get_current_site(request).domain
             send_confirmation_email(user.id, site_address)
             # user = form.save(commit=False)

@@ -77,6 +77,27 @@ class StoryForm(forms.ModelForm):
         }
 
 
+class RecipeForm(forms.ModelForm):
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.Select(attrs={
+                    'class': 'form-control'
+                }))
+    tags =  forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.SelectMultiple(attrs={
+                    'class': 'form-control',
+                }) )
+    class Meta:
+        model = Recipe
+        fields = ('title', 'category', 'tags', 'short_description', 'long_description', 'image',)
+        widgets = {
+            'title': forms.TextInput(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Title',
+                }),
+            'long_description': CKEditorUploadingWidget(),
+
+        }
+
+
+
 
 
 

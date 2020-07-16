@@ -90,7 +90,6 @@ class Recipe(models.Model):
         return reverse_lazy('recipe_detail', kwargs={'slug': self.slug }) #f'/stories/{self.slug}/'
 
 
-
 class Story(models.Model):
     # relations
     category = models.ForeignKey(Category, verbose_name='Kateqoriya', on_delete=models.CASCADE, db_index=True, related_name='stories')

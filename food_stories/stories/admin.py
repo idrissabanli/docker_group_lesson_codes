@@ -1,5 +1,5 @@
 from django.contrib import admin
-from stories.models import Recipe, Tag, Category, Contact, Story, SavedArticle
+from stories.models import Recipe, Tag, Category, Contact, Story, SavedArticle, Subscriber
 from stories.forms import RecipeAdminForm
 
 
@@ -36,3 +36,4 @@ admin.site.register(Category)
 admin.site.register(Contact)
 admin.site.register(Story)
 admin.site.register(SavedArticle)
+admin.site.register(Subscriber)

@@ -4,11 +4,13 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 
 from stories.models import Category, Recipe, Story, SavedArticle
-from stories.forms import ContactForm, StoryForm, RecipeForm
+from stories.forms import ContactForm, StoryForm, RecipeForm, SubscriberForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden, HttpResponse
 from django.core.exceptions import PermissionDenied
+
+from stories.tasks import export_excel
 
 # def home(request):
 #     categories = Category.objects.all()[:3]
@@ -180,3 +182,28 @@ class SavedRecipeListView(ListView):
                 queryset = super().get_queryset()
                 return queryset.filter(id__in=saved_recipe_ids)
             return None
+
+
+def export_excel_view(request):
+    export_excel.delay()
+    return HttpResponse('Export edilir')
+
+
+class SubscriberCreateView(CreateView):
+    form_class = SubscriberForm
+    # template_name = None
+    http_method_names = ('post',)
+    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        redirect_url = self.request.GET.get('redirect_url', self.success_url)
+        return redirect_url
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Subscribe oldunuz')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.success(self.request, form.errors)
+        redirect_url = self.request.GET.get('redirect_url', self.success_url)
+        return redirect(redirect_url)

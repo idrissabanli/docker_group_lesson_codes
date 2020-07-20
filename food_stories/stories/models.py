@@ -174,6 +174,24 @@ class SavedArticle(models.Model):
     def __str__(self):
         return f"{self.user} recipe: {self.recipe} story: {self.story}"
 
+
+class Subscriber(models.Model):
+    # information's
+    email = models.EmailField('Email', max_length=30, unique=True)
+    is_active = models.BooleanField('is active', default=True)
+
+    # moderation's
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta: 
+        verbose_name = 'Subscriber'
+        verbose_name_plural = 'Subscribers'
+
+    def __str__(self):
+        return self.email
+
+
 """
 |id | message | parent_id |
 | 1 | Eladi | null |

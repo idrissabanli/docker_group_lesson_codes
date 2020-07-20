@@ -12,6 +12,12 @@ services:
       POSTGRES_USER: 'stories_user_name'
       POSTGRES_PASSWORD: '123'
       # POSTGRES_HOST: 'postgres'
+    
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: "always"
 
   # pgadmin:
   #   container_name: pgadmin_container

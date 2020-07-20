@@ -1,6 +1,7 @@
 from django.urls import path
 from stories.views import HomePage, about, recipes, recipe_detail, StoryListView, StoryDetailView, ContactView, \
-    CreateStoryView, StoryUpdateView, StoryDeleteView, manage, CreateRecipeView, SaveRecipeView, SavedRecipeListView
+    CreateStoryView, StoryUpdateView, StoryDeleteView, manage, CreateRecipeView, SaveRecipeView, \
+        SavedRecipeListView, export_excel_view, SubscriberCreateView
 
 urlpatterns = [
     path('', HomePage.as_view(), name='home'),
@@ -17,4 +18,6 @@ urlpatterns = [
     path('save-recipe/<int:pk>/', SaveRecipeView.as_view(), name='save_recipe'),
     path('saved-recipes/', SavedRecipeListView.as_view(), name='saved_recipes'),
     path('manage/', manage, name='manage'),
+    path('export/', export_excel_view, name='export_excel_view'),
+    path('subscribe/', SubscriberCreateView.as_view(), name='subscribe'),
 ]

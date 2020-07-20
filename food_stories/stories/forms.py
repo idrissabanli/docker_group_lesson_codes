@@ -1,5 +1,5 @@
 from django import forms
-from stories.models import Contact, Recipe, Story, Category, Tag
+from stories.models import Contact, Recipe, Story, Category, Tag, Subscriber
 # from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -97,6 +97,20 @@ class RecipeForm(forms.ModelForm):
         }
 
 
+class SubscriberForm(forms.ModelForm):
+
+    class Meta:
+        model = Subscriber
+        fields = (
+            'email',
+        )
+
+        widgets = {
+            'email': forms.EmailInput(attrs={
+                'class':  'form-control',
+                'placeholder': 'Enter email address',
+            })
+        }
 
 
 

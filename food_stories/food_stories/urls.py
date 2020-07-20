@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('stories.urls')),
     path('api/v1.0/', include('api.urls')),
+    path('api/v1.0/auth/', include('accounts.api.urls', namespace='api_account')),
     path('', include('social_django.urls', namespace="social")),
     path('auth/', include('accounts.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),

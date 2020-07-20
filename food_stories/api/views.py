@@ -2,7 +2,21 @@ from django.shortcuts import render, get_object_or_404
 from stories.models import Recipe
 from api.serializers import RecipeSerializer, RecipeReadSerializer
 from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied, MethodNotAllowed
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+# from django.utils.decorators import method_decorator
+# from django.contrib.auth.decorators import login_required
+
+def login_required(f):
+    def wrapper(*args, **kwargs):
+        request = args[0]
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return f(*args, **kwargs)
+    wrapper.__name__ = f.__name__
+    return wrapper
+
 from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_204_NO_CONTENT
 
 
@@ -10,17 +24,22 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_204_NO_CON
 def recipes_api(request):
     if request.method == 'GET':
         recipes = Recipe.objects.filter(is_published=True)
-        serializer = RecipeReadSerializer(recipes, many=True)
+        serializer = RecipeReadSerializer(recipes, context={'request': request}, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+    if not request.user.is_authenticated:
+        raise PermissionDenied
     elif request.method == 'POST':
         recipe_data = request.data
-        serializer = RecipeSerializer(data=recipe_data)
+        serializer = RecipeSerializer(data=recipe_data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
+    else:
+        raise MethodNotAllowed
 
 
 @api_view(('GET', 'PUT', 'PATCH', 'DELETE'))
+@login_required
 def recipe(request, id):
     response_data = {
         'message': 'success',
@@ -33,14 +52,14 @@ def recipe(request, id):
         response_data['recipe'] = serializer.data
     elif request.method == 'PUT':
         recipe = get_object_or_404(Recipe, id=id)
-        serializer = RecipeSerializer(recipe, request.data)
+        serializer = RecipeSerializer(recipe, context={'request': request}, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         response_data['recipe'] = serializer.data
         response_data['action'] = 'modify'
     elif request.method == 'PATCH':
         recipe = get_object_or_404(Recipe, id=id)
-        serializer = RecipeSerializer(instance=recipe, data=request.data, partial=True, )
+        serializer = RecipeSerializer(instance=recipe, context={'request': request}, data=request.data, partial=True, )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         response_data['recipe'] = serializer.data

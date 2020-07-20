@@ -13,6 +13,7 @@
 
                 <li class="nav-item"><a href="{% url 'recipes' %}" class="nav-link">Recipes</a></li>
                 <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="{% url 'api_account:register' %}" class="nav-link">Auth APi</a></li>
                 <li class="nav-item"><a href="{% url 'saved_recipes' %}" class="nav-link">Saved Articles</a></li>
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'logout' %}" class="btn btn-black px-3 px-md-4 py-3">Log Out</a></li>

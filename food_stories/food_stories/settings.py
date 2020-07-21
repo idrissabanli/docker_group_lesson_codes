@@ -151,6 +151,9 @@ CELERY_TIMEZONE = 'Asia/Baku'
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
+
+SITE_ADDRESS = 'http://localhost:8000'
+
 LANGUAGE_CODE = 'az'
 
 TIME_ZONE = 'Asia/Baku'
@@ -237,8 +240,8 @@ JET_THEMES = [
 
 # change your custom smtp configuration
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'tech.academy.user2@gmail.com'
-EMAIL_HOST_PASSWORD = 'fsqcyadagqipthcz'
+EMAIL_HOST_USER = 'tech.academy.docker@gmail.com'
+EMAIL_HOST_PASSWORD = 'suqmnhaxezvemyhn'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -19,6 +19,9 @@ services:
       - "6379:6379"
     restart: "always"
 
+
+# celery -A food_stories worker --beat --scheduler django --loglevel=info
+
   # pgadmin:
   #   container_name: pgadmin_container
   #   image: dpage/pgadmin4

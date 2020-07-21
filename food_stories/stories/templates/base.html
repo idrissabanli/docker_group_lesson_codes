@@ -70,7 +70,7 @@
                 stroke="#F96D00"/>
     </svg>
     </div>
-
+    <div id="snackbar">Some text some message..</div>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
@@ -87,6 +87,46 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{% static 'js/google-map.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+
+    <script>
+
+        document.querySelector('.subscribe-form').addEventListener('submit', (e)=>{
+            e.preventDefault();
+            var form_data = {
+                'email': document.querySelector('[name="email"]').value,
+            };
+
+            $.ajax({
+                url:"{% url 'subscribe' %}",
+                method: "POST",
+                data: form_data,
+                success: function(response, textStatus, xhr){
+                    console.log(response);
+                    if (xhr.status == 201){
+                        show_message('Ugurla subscribe oldunuz!');
+                    }
+                },
+                error: function(error_resp){
+                    console.log(error_resp);
+                    response = error_resp.responseJSON;
+                    for(let error_key in response){
+                        show_message(response[error_key]);
+                    }
+                }
+            })
+
+       
+        });
+
+        function show_message(message) {
+            var x = document.getElementById("snackbar");
+            x.innerText = message;
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+    </script>
 
     {% block js %}
     {% endblock %}

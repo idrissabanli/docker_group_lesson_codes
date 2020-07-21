@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from stories.models import Recipe
-from api.serializers import RecipeSerializer, RecipeReadSerializer
+from api.serializers import RecipeSerializer, RecipeReadSerializer, SubscriberSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied, MethodNotAllowed
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
-# from django.utils.decorators import method_decorator
-# from django.contrib.auth.decorators import login_required
+from rest_framework.generics import CreateAPIView
+from rest_framework.authentication import BasicAuthentication
+from api.utils import CsrfExemptSessionAuthentication
 
 def login_required(f):
     def wrapper(*args, **kwargs):
@@ -71,3 +72,7 @@ def recipe(request, id):
         status_code = HTTP_204_NO_CONTENT
     return Response(response_data, status=status_code)
 
+
+class SubscriberCreateAPIView(CreateAPIView):
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    serializer_class = SubscriberSerializer

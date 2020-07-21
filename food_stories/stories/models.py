@@ -1,3 +1,4 @@
+import math
 from django.db import models
 from django.contrib.auth import get_user_model
 from stories.tools.slug_generator import slugify
@@ -66,6 +67,7 @@ class Recipe(models.Model):
     # author = models.CharField('Muellif', max_length=50)
 
     # moderations
+    min_read_time = models.PositiveIntegerField('Min read time', editable=False, default=1)
     slug = models.SlugField('slug', max_length=255, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -82,6 +84,8 @@ class Recipe(models.Model):
         return f"{self.title} category: {self.category}"
 
     def save(self, *args, **kwargs):
+        article_word_count = len(self.long_description.split(' '))
+        self.min_read_time = math.ceil(article_word_count/120)
         if not self.slug:
             self.slug = f"{slugify(self.title)}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         super().save(*args, **kwargs)
@@ -106,6 +110,7 @@ class Story(models.Model):
     slug = models.SlugField('slug', max_length=255, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    min_read_time = models.PositiveIntegerField('Min read time', editable=False, default=1)
     is_published = models.BooleanField('is published', default=True)
 
     class Meta: # table name: stroies_recipe
@@ -119,6 +124,8 @@ class Story(models.Model):
         return f"{self.title} category: {self.category}"
 
     def save(self, *args, **kwargs):
+        article_word_count = len(self.long_description.split(' '))
+        self.min_read_time = math.ceil(article_word_count/120)
         if not self.slug:
             self.slug = f"{slugify(self.title)}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         super().save(*args, **kwargs)

@@ -164,11 +164,14 @@ class Contact(models.Model):
     def __str__(self):
         return f"{self.name} subject: {self.subject}"
 
+    def get_email(self):
+        return self.email
+
 
 class SavedArticle(models.Model):
     user = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE, related_name='saved_articles',)
-    recipe =models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_saved_articles', null=True, blank=True)
-    story =models.ForeignKey(Story, on_delete=models.CASCADE, related_name='story_saved_articles', null=True, blank=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_saved_articles', null=True, blank=True)
+    story = models.ForeignKey(Story, on_delete=models.CASCADE, related_name='story_saved_articles', null=True, blank=True)
 
     # moderations
     created_at = models.DateTimeField(auto_now_add=True)

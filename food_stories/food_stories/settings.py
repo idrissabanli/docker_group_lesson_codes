@@ -154,7 +154,7 @@ CELERY_TIMEZONE = 'Asia/Baku'
 
 SITE_ADDRESS = 'http://localhost:8000'
 
-LANGUAGE_CODE = 'az'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Baku'
 

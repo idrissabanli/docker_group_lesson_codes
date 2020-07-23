@@ -9,3 +9,4 @@ pgdb/
 pgdb2/
 postgresdb/
 *.sql
+*.tar.gz

@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  # nginx-proxy:
+  #   image: jwilder/nginx-proxy
+  #   restart: "always"
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
+  #     - ./nginx/vhost/:/etc/nginx/vhost.d:ro
+  #     - ./nginx/conf.d/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf:ro
+  #     - ./static/:/code/static/
+  #     - ./media/:/code/media/
+
+  postgres:
+    image: postgres
+    volumes:
+      - ../postgresdb/:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file: ../.env
+
+  # web:
+  #   build: .
+  #   restart: "always"
+  #   ports:
+  #     - "8000:8000"
+  #   # command: gunicorn --bind 0.0.0.0 -p 8000 food_stories.wsgi
+  #   volumes:
+  #     - .:/code/
+  #     - ./static/:/code/static/
+  #     - ./media/:/code/media/
+  #   depends_on:
+  #     - "postgres"
+  #   env_file: ./.env
+
+  # celery: 
+  #   build: 
+  #     context: .
+  #     dockerfile: celery.dockerfile
+  #   volumes:
+  #     - .:/code
+  #   links:
+  #     - redis
+  #     - postgres
+  #   depends_on: 
+  #     - "redis"
+  #     - "postgres"
+  #   env_file: ./.env
+    
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    # command: redis-server --requirepass $REDIS_PASSWORD
+    restart: "always"
+    env_file: ../.env
+
+
+# celery -A food_stories worker --beat --scheduler django --loglevel=info

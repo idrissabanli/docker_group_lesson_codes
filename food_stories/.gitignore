@@ -5,3 +5,4 @@ mydb/
 pgadmin/
 media/
 *.sql
+*.tar.gz

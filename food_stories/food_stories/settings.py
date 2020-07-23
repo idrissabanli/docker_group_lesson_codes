@@ -24,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6_vgq7jj67n#o4fc6n7f9_u@eagvz#ni)+!(u(4i$)u_12r&d)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.environ.get('DEBUG', False)
+PROD = not DEBUG
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -94,16 +94,28 @@ WSGI_APPLICATION = 'food_stories.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'stories_db_name',
-        'USER': 'stories_user_name',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
-        'PORT': '5432'
+if PROD:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('POSTGRES_DB'),
+            'USER': os.environ.get('POSTGRES_USER'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+            'HOST': os.environ.get('POSTGRES_HOST'),
+            'PORT': os.environ.get('POSTGRES_PORT')
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'stories_db_name',
+            'USER': 'stories_user_name',
+            'PASSWORD': '123',
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
+    }
 
 # DATABASES = {
 #     'default': {
@@ -139,14 +151,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# CELERY STUFF
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Baku'
+if PROD:
+    REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')
+    # CELERY STUFF
+    CELERY_BROKER_URL = f'redis://:{REDIS_PASSWORD}@redis:6379'
+    CELERY_RESULT_BACKEND = f'redis://:{REDIS_PASSWORD}@redis:6379'
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = 'Asia/Baku'
+else:
+    # CELERY STUFF
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = 'Asia/Baku'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -182,9 +203,12 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '46459ce1a71bb0aec1a28a12eb374952'  # App Secret
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+if PROD:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

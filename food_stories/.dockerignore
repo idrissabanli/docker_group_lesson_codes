@@ -1,0 +1,10 @@
+.idea/
+.venv/
+contributors.txt
+*.pyc
+.git/
+.DS_Store
+pgadmin/
+pgdb/
+pgdb2/
+postgresdb/

@@ -172,9 +172,9 @@ else:
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-DOMAIN = os.environ.get('VIRTUAL_HOST', 'localhost')
-DOMAIN = DOMAIN.split(',')[0]
-SITE_ADDRESS = f'http://{DOMAIN}'
+# DOMAIN = os.environ.get('VIRTUAL_HOST', 'localhost')
+# DOMAIN = DOMAIN.split(',')[0]
+SITE_ADDRESS = 'http://localhost:8000'
 
 LANGUAGE_CODE = 'en'
 

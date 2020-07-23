@@ -4,3 +4,4 @@ postgresdb
 mydb/
 pgadmin/
 media/
+*.sql

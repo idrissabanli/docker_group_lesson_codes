@@ -173,8 +173,8 @@ else:
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 DOMAIN = os.environ.get('VIRTUAL_HOST', 'localhost')
-
-SITE_ADDRESS = f'http://{DOMAIN.split(',')[0]}'
+DOMAIN = DOMAIN.split(',')[0]}
+SITE_ADDRESS = f'http://{DOMAIN}'
 
 LANGUAGE_CODE = 'en'
 

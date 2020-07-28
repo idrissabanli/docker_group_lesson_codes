@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from './Button';
+import PropTypes from 'prop-types'
+
 
 function Navbar(props) {
     const buttonText = props.isAuthenticated ? "Log Out": "Log In";
@@ -41,6 +43,14 @@ function Navbar(props) {
                 </div>
             </nav>
     )
+}
+
+Navbar.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
+}
+
+Navbar.defaultProps = {
+    isAuthenticated: false
 }
 
 export default Navbar;

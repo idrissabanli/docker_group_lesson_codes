@@ -1,27 +1,45 @@
 import React, { Component } from 'react'
 
-export default class AddProduct extends Component {
+class AddProduct extends Component {
+    state = {
+        title: "",
+        src: "",
+        description: ""
+    }
+    onChangeInput = (e) => {
+        let Obj = {};
+        Obj[e.target.name] = e.target.value;
+        this.setState({
+            ...Obj
+        });
+    }
+
+    createProduct = (e) =>{
+        e.preventDefault();
+        this.props.addProduct(this.state);
+    }
+
     render() {
+        const {title, src, description} = this.state;
         return (
-            <form className="m-auto">
+            <form  className="m-auto">
+                <h1 className="text-center" >Add product</h1>
                 <div className="form-group">
-                    <label>Full name</label>
-                    <input type="text" name="full_name" className="form-control"/>
+                    <label>Title</label>
+                    <input type="text" name="title" onChange={this.onChangeInput}  value={title} className="form-control"/>
                 </div>
                 <div className="form-group">
-                    <label>Email</label>
-                    <input type="text" name="email" className="form-control"/>
+                    <label>Image</label>
+                    <input type="text" name="src" value={src}  onChange={this.onChangeInput}  className="form-control"/>
                 </div>
                 <div className="form-group">
-                    <label>Subject</label>
-                    <input type="text" name="subject" className="form-control"/>
+                    <label>Description</label>
+                    <textarea className="form-control" value={description} onChange={this.onChangeInput}   name="description"/>
                 </div>
-                <div className="form-group">
-                    <label>Message</label>
-                    <input type="text" name="message" className="form-control"/>
-                </div>
-                <Button buttonText="Gonder"/>
+                <button onClick={this.createProduct} className="btn btn-primary">Yarat</button>
         </form>
         )
     }
 }
+
+export default AddProduct;

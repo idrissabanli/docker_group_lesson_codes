@@ -3,12 +3,12 @@ import './App.css';
 import Navbar from './components/Navbar'
 import Contact from './components/Contact';
 import Products from './components/Products';
-
+import AddProduct from './components/AddProduct';
 
 class App extends Component {
 
    state =  {
-     'products' : [
+     products : [
                   {
                     id: 1,
                     title: 'Iphone 7',
@@ -34,11 +34,20 @@ class App extends Component {
                     description: 'Good product',
                   },
           ],
+          last_id: 4,
   }
 
   deleteProduct = (id)  => {
       this.setState({ 'products': this.state.products.filter(product => product.id !== id )
     });
+  }
+
+  addProduct = (newProduct) => {
+    newProduct['id'] = ++this.state.last_id;
+    this.setState({
+      products: [...this.state.products, newProduct]
+    });
+    newProduct = {}
   }
 
   render(){
@@ -51,7 +60,8 @@ class App extends Component {
           <Contact/>
           
           <Products deleteProduct={this.deleteProduct} products={this.state.products}/>
-        
+          <hr/>
+          <AddProduct addProduct={this.addProduct}/>
         </div>
       </div>
     );

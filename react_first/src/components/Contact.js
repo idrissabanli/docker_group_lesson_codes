@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Button from './Button'
 
 class Contact extends Component {
+    
     render() {
         return (
             <form className="m-auto">

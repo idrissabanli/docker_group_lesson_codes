@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 import Product from './Product';
+import {ProductConsumer} from '../context';
 
 
 class Products extends Component {
@@ -8,22 +8,26 @@ class Products extends Component {
     
     render() {
         return (
-            <div className="row">
-                { this.props.products.map(product => {
-                    return (
-                        <Product key={product.id} id={product.id} deleteProduct={this.props.deleteProduct}  title={product.title} src={product.src} description={product.description} />
-                    )
-                })
+            <ProductConsumer>
+                {
+                    value => {
+                        const {products} = value;
+                        return (
+                                 <div className="row">
+                                        { products.map(product => {
+                                            return (
+                                                <Product key={product.id} id={product.id} deleteProduct={this.props.deleteProduct}  title={product.title} src={product.src} description={product.description} />
+                                            )
+                                        })
+                                    }
+                            </div>
+                        )
+                    }
                 }
-            </div>
-           
+            </ProductConsumer>
         )
-    }
-}
 
-Products.propTypes = {
-    products: PropTypes.array.isRequired,
-    deleteProduct: PropTypes.func.isRequired,
+    }
 }
 
 

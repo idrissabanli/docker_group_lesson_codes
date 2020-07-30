@@ -1,0 +1,8 @@
+.sign-in{
+    width: 100%;
+    max-width: 330px;
+    height: 70vh;
+}
+.sign-in form{
+  min-width: 330px;
+}

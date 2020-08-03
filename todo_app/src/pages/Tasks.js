@@ -1,41 +1,39 @@
 import React, { Component } from 'react'
 import Task from '../components/Task';
-import axios from 'axios';
 import {Consumer} from '../context'
 
-export default class Tasks extends Component {
+class Tasks extends Component {
 
-    componentWillMount = async () =>{
-        const {token} = this.props.userInfo;
-        console.log(token);
-        const response = await axios.get('http://localhost:8000/api/v1.0/tasks',
-            { 
-                headers: {
-                    'Authorization': `Token ${token}`,
-                },
-            } 
-        );
-        console.log(response);
-        this.setState({
-            ...this.state,
-            owntasks: response.data,
-        });
+    constructor(props){
+        super()
+        console.log('constructor worked');
     }
-    
+
+    componentDidMount(){
+        console.log('componentDidMount worked');
+    }
+    componentDidUpdate(){
+        console.log('componentDidUpdate worked');
+    }
     render() {
+        console.log('render worked');
         return (
             <Consumer>
                 {
                     value => {
+                        const {owntasks} = value;
                         return (
+                            <div className="container">
+                                <h1 className="text-center">My Tasks</h1>
                             <div className="accordion" id="accordionExample">
                                 {
-                                    this.state.owntasks.map(task=>{
-                                        return <Task { ...task } />
+                                    owntasks.map(task=>{
+                                        return <Task key={task.id} { ...task } />
                                     })
                                 }
                                 
                                 
+                            </div>
                             </div>
                         )
                     }
@@ -46,3 +44,5 @@ export default class Tasks extends Component {
         
     }
 }
+
+export default Tasks;

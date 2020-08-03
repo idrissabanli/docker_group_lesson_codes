@@ -5,7 +5,15 @@ import {Redirect} from 'react-router-dom';
 
 class SingIn extends Component {
 
+    constructor(props){
+        super()
+        if(localStorage.getItem('userInfo')){
+            props.history.push('/');
+        }
+    }
+
     state = {
+        redirectToReferrer: false,
         username: '',
         password: ''
     }
@@ -19,8 +27,13 @@ class SingIn extends Component {
         }
         const response = await axios.post('http://localhost:8000/api/v1.0/auth/login/', userData);
         console.log(response);
-        if (response.status === 200)
+        if (response.status === 200){
+            localStorage.setItem('userInfo', JSON.stringify(response.data)); 
             dispatch({type:"CHANGE_USERINFO", payload:response.data});
+            this.setState({
+                redirectToReferrer: true
+            });
+        }
             
     }
 
@@ -31,6 +44,8 @@ class SingIn extends Component {
     }
 
     render() {
+        if (this.state.redirectToReferrer)
+            return <Redirect to="/" />
 
         return (
             <Consumer>

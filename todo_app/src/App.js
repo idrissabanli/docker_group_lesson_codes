@@ -5,7 +5,6 @@ import Navbar from './layouts/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import PrivateRoute from './utils/PrivateRoute';
-import AuthRoute from './utils/AuthRoute';
 
 import Tasks from './pages/Tasks';
 import {
@@ -15,6 +14,7 @@ import {
 } from "react-router-dom";
 import NotFound from './pages/NotFound';
 import {Consumer} from './context'
+import AddTask from './pages/AddTask';
 
 
 function App() {
@@ -24,16 +24,15 @@ function App() {
 
       {
         value =>{
-          const {isAuthenticated, userInfo} = value;
+          const {isAuthenticated} = value;
           return (
             <div className="App">
               <Router>
                 <Navbar/>
               <Switch>
-                  <AuthRoute exact authed={isAuthenticated}  path="/login" component={SingIn}/>
-                  <PrivateRoute exact authed={isAuthenticated} path='/' >
-                      <Tasks userInfo={userInfo}/>
-                  </PrivateRoute>
+                  <Route exact path="/login" component={SingIn}/>
+                  <PrivateRoute exact authed={isAuthenticated} path='/' component={Tasks} />
+                  <PrivateRoute exact authed={isAuthenticated} path='/add' component={AddTask} />
                   <Route component={NotFound}/>
                 </Switch>
               </Router>

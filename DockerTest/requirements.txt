@@ -66,7 +66,7 @@ notebook==6.0.3
 oauthlib==2.1.0
 olefile==0.46
 pandocfilters==1.4.2
-paramiko==2.6.0
+paramiko==2.10.1
 parso==0.7.0
 pbr==5.4.5
 pexpect==4.6.0

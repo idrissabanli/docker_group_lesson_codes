@@ -57,7 +57,7 @@ macaroonbakery==1.2.3
 Mako==1.0.7
 MarkupSafe==1.1.0
 microstarter==0.0.6
-mistune==0.8.4
+mistune==2.0.3
 monotonic==1.5
 nbconvert==5.6.1
 nbformat==5.0.6
